@@ -1,8 +1,5 @@
 package com.lechowicz.stack;
 
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-
 public class Stack<E> {
     private final Object[] stack;
     private int index;
@@ -12,22 +9,38 @@ public class Stack<E> {
         this.index = -1;
     }
 
-    public void push(E item){
-        this.stack[++index] = (E) item;
+    public E push(E value) throws Exception{
+        try{
+            this.stack[++index] = (E) value;
+        } catch(ArrayIndexOutOfBoundsException ex){
+            index--;
+            throw new Exception(ex);
+        }
+        return (E) this.stack[index];
     }
 
-    public E pop(){
+    public E pop() throws Exception{
         E returnItem = null;
-        returnItem = (E) this.stack[index--];
-
+        try{
+            returnItem = (E) this.stack[index--];
+        } catch(ArrayIndexOutOfBoundsException ex){
+            index = -1;
+            throw new Exception(ex);
+        }
         return returnItem;
     }
 
-    public E peek(){
+    public E peek() throws Exception{
         E returnItem = null;
-        returnItem = (E) this.stack[index];
-
+        try{
+            returnItem = (E) this.stack[index];
+        } catch(ArrayIndexOutOfBoundsException ex){
+            throw new Exception(ex);
+        }
         return returnItem;
     }
 
+    public boolean isEmpty(){
+        return index == -1;
+    }
 }
