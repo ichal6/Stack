@@ -2,7 +2,7 @@ package com.lechowicz.stack;
 
 public class Main {
     public static void main(String[] args) {
-        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> stack = new Stack<>(2);
         stack.push(4);
         stack.push(3);
         stack.push(2);
@@ -11,7 +11,11 @@ public class Main {
         Integer item = stack.pop();
         while(item != null){
             System.out.print(item + " ");
-            item = stack.pop();
+            try{
+                item = stack.pop();
+            } catch (ArrayIndexOutOfBoundsException ex){
+                break;
+            }
         }
         System.out.println();
     }

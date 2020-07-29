@@ -4,34 +4,29 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class Stack<E> {
-    private final LinkedList<E> stack;
+    private final Object[] stack;
+    private int index;
 
-    public Stack(){
-        this.stack = new LinkedList<>();
+    public Stack(int maxSize){
+        this.stack = new Object[maxSize];
+        this.index = -1;
     }
 
     public void push(E item){
-        this.stack.add(item);
+        this.stack[++index] = (E) item;
     }
 
     public E pop(){
         E returnItem = null;
-        try{
-            returnItem = this.stack.getLast();
-            this.stack.removeLast();
-        } catch (NoSuchElementException ex){
-            return null;
-        }
+        returnItem = (E) this.stack[index--];
+
         return returnItem;
     }
 
     public E peek(){
         E returnItem = null;
-        try{
-            returnItem = this.stack.getLast();
-        } catch (NoSuchElementException ex){
-            return null;
-        }
+        returnItem = (E) this.stack[index];
+
         return returnItem;
     }
 
